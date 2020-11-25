@@ -17,8 +17,15 @@
   <div id="posts-list-container">
     <ul>
       <% for(post of posts){%>
-      <p>
-        <li><%=post.content%></li>
+      
+        <li>
+          <p>
+            <%if((locals.user) && (locals.user.id==post.user.id)){%>
+            <small>
+              <a href="/posts/destroy/<%=post.id%>">X</a>
+            </small>
+            <%}%>
+            <%=post.content%></li>
         <br />
         <small> <%=post.user.name%> </small>
       </p>
@@ -41,6 +48,11 @@
           <ul id="post-comments-<%=post._id%>"></ul>
           <%for(comment of post.comment){%>
           <p>
+            <%if((locals.user) && (locals.user.id==comment.user.id)){%>
+              <small>
+                <a href="/comments/destroy/<%=comment.id%>">X</a>
+              </small>
+              <%}%>
             <%=comment.content%>
             <br />
             <small> <%=comment.user.name%> </small>
